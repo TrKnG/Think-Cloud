@@ -1,0 +1,197 @@
+/* Custom font import */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+    --primary: #1db954;
+    --secondary: #181914;
+    --warning: #ff0000;
+    --gray-light: #f5f5f5;
+    --gray-dark: #333;
+    --white: #fff;
+    --accent: #ff6600;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    color: var(--gray-dark);
+}
+
+body {
+    background-color: var(--gray-light);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: var(--secondary);
+    transform: scale(1.05);
+}
+
+button,
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: var(--white);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s ease;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+}
+
+button:hover,
+.btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled,
+.btn:disabled {
+    opacity: 0.5;
+    background-color: #ccc;
+    color: var(--white);
+    cursor: not-allowed;
+}
+
+form {
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    border: 1px solid var(--secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input,
+textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary);
+}
+
+.router-link {
+    color: var(--primary);
+}
+
+.router-link:hover {
+    color: var(--secondary);
+}
+
+.error {
+    color: var(--warning);
+    font-size: 14px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.navbar {
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+nav h1 {
+    color: var(--white);
+    text-transform: uppercase;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+nav h1:hover {
+    color: var(--accent);
+}
+
+nav .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+nav .nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+nav .nav-links h1 {
+    font-size: 16px;
+    color: var(--white);
+    transition: transform 0.2s ease;
+}
+
+nav .nav-links h1:hover {
+    transform: scale(1.1);
+    color: var(--accent);
+}
+
+nav .thoughts,
+.sign {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Hover effects */
+nav .links a:hover {
+    background-color: #3e3e5e;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+button {
+    border-radius: 8px;
+    padding: 10px 20px;
+    background-color: var(--primary);
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #1db954;
+    transform: scale(1.05);
+}
+
+.page-transition-enter-active,
+.page-transition-leave-active {
+    transition: opacity 1s ease-in-out;
+}
+
+.page-transition-enter,
+.page-transition-leave-to {
+    opacity: 0;
+}
