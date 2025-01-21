@@ -1,6 +1,11 @@
 <template>
   <div class="about-us">
-    <div class="about-us__content" v-for="(paragraph, index) in paragraphs" :key="index" ref="contentRefs">
+    <div
+      class="about-us__content"
+      v-for="(paragraph, index) in paragraphs"
+      :key="index"
+      ref="contentRefs"
+    >
       <p>{{ paragraph }}</p>
     </div>
   </div>

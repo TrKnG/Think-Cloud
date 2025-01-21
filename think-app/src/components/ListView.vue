@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="listview-container">
-      <div v-for="thought in thoughts" :key="thought.id" class="listview-single">
+      <div
+        v-for="thought in thoughts"
+        :key="thought.id"
+        class="listview-single"
+      >
         <div class="listview-thumbnail">
           <img src="@/assets/logo4.png" alt="Logo" />
         </div>
@@ -10,10 +14,14 @@
         >
           <div class="listview-info">
             <h3 class="listview-info__title">{{ thought.thought }}</h3>
-            <p class="listview-info__creator">Created by {{ thought.userName }}</p>
+            <p class="listview-info__creator">
+              Created by {{ thought.userName }}
+            </p>
           </div>
           <div class="listview-timestamp">
-            <p class="listview-info__creator">{{ formatDate(thought.createdAt) }}</p>
+            <p class="listview-info__creator">
+              {{ formatDate(thought.createdAt) }}
+            </p>
           </div>
         </router-link>
       </div>

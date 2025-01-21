@@ -63,7 +63,6 @@ export default {
       isPending.value = true;
       try {
         await loginAnonymously();
-        console.log("Anonim giriş başarılı");
         router.push({ name: "home" });
       } catch (err) {
         console.log(err);

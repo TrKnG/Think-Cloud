@@ -34,7 +34,6 @@
             <i :class="['fa', 'fas', themeIcon]" class="theme-icon"></i>
             <span class="sr-only">Toggle theme</span>
           </button>
-          
         </div>
       </nav>
     </transition>
@@ -46,27 +45,24 @@ import getUser from "@/composables/getUser";
 import useLogout from "@/composables/useLogout";
 import { useRouter } from "vue-router";
 import gsap from "gsap";
-import {ref} from "vue";
+import { ref } from "vue";
 
 export default {
   setup() {
     const { user } = getUser();
     const { logout } = useLogout();
     const router = useRouter();
-
-    // Tema değiştirme fonksiyonu
     const toggleTheme = () => {
       const currentTheme = document.documentElement.getAttribute("data-theme");
       const newTheme = currentTheme === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", newTheme);
-      themeIcon.value = currentTheme === "dark" ? "fa-sun" : "fa-moon"; // Ikon değişimi
+      themeIcon.value = currentTheme === "dark" ? "fa-sun" : "fa-moon";
     };
 
-    const themeIcon = ref("fa-moon"); // Başlangıçta ay ikonu
-
+    const themeIcon = ref("fa-moon");
     const handleClick = async () => {
-      await logout();
       router.push({ name: "login" });
+      await logout();
     };
 
     const beforeEnter = (el) => {
@@ -87,7 +83,6 @@ export default {
     return { enter, beforeEnter, handleClick, toggleTheme, user, themeIcon };
   },
 };
-
 </script>
 
 <style>

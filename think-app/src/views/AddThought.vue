@@ -48,6 +48,8 @@ export default {
           userId: user.value.uid,
           userName: userName,
           createdAt: timestamp(),
+          likes: 0,
+          dislikes: 0,
         });
 
         isPending.value = false;
