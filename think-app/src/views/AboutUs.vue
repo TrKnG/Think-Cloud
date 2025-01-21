@@ -1,6 +1,6 @@
 <template>
   <div class="about-us">
-    <div class="content" v-for="(paragraph, index) in paragraphs" :key="index">
+    <div class="about-us__content" v-for="(paragraph, index) in paragraphs" :key="index" ref="contentRefs">
       <p>{{ paragraph }}</p>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     animateContent() {
-      gsap.from(".content", {
+      gsap.from(".about-us__content", {
         duration: 1.5,
         y: 50,
         opacity: 0,
@@ -40,36 +40,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.about-us {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 50px 20px;
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.content {
-  margin-bottom: 20px;
-  font-size: 16px;
-  line-height: 1.8;
-  color: #333;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.content p {
-  margin: 0;
-  color: #555;
-}
-
-.content:last-child {
-  margin-bottom: 0;
-}
+<style>
 </style>

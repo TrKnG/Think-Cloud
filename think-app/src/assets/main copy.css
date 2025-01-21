@@ -11,25 +11,10 @@
     --white: #fff;
     --accent: #1db954;
     --text-dark: #333;
-    --text-light: #f5f5f5;
-    --background-light: #f5f5f5;
-    --background-dark: #181914;
+    /* Daha spesifik renk adı */
     --gray-medium: #666;
+    /* Yeni bir renk değişkeni */
 }
-
-[data-theme='dark'] {
-    --primary: #1ed760;
-    --secondary: #181914;
-    --white: #222;
-    --text-dark: #f5f5f5;
-    --text-light: #f5f5f5;
-    --background-light: #333;
-    --background-dark: #222;
-    --gray-light: #555;
-    --gray-dark: #ccc;
-}
-
-
 
 * {
     margin: 0;
@@ -45,12 +30,6 @@ body {
     font-size: 16px;
     line-height: 1.6;
 }
-
-[data-theme='dark'] body {
-    background-color: var(--background-dark);
-    color: var(--text-light);
-}
-
 
 a {
     text-decoration: none;
@@ -142,8 +121,6 @@ textarea:focus {
     text-align: center;
 }
 
-
-
 .navbar {
     background-color: var(--secondary);
     color: var(--white);
@@ -201,37 +178,6 @@ nav .links a:hover {
     transform: scale(1.1);
 }
 
-.theme-toggle-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 24px;
-    color: var(--text-light);
-    transition: transform 0.3s ease-in-out;
-}
-
-.theme-toggle-btn:hover {
-    transform: scale(1.2);
-}
-
-.theme-icon {
-    transition: transform 0.3s ease-in-out;
-    color: var(--accent);
-}
-
-/* Icon transition */
-[data-theme="dark"] .theme-icon {
-    transform: rotate(250deg);
-    /* Ay simgesi dönerken */
-}
-
-[data-theme="light"] .theme-icon {
-    transform: rotate(0deg);
-    /* Güneş simgesi dönerken */
-}
-
-
 .page-transition-enter-active,
 .page-transition-leave-active {
     transition: opacity 1s ease-in-out;
@@ -242,7 +188,7 @@ nav .links a:hover {
     opacity: 0;
 }
 
-/* Updated Thought Details Page Styles */
+/* Thought details page specific styles */
 .thought-details-page__thought-details {
     display: flex;
     flex-direction: column;
@@ -251,11 +197,9 @@ nav .links a:hover {
     padding: 40px 20px;
     max-width: 900px;
     margin: 40px auto;
-    background: rgba(0, 0, 0, 0.2); /* Hafif transparan arka plan */
-    backdrop-filter: blur(10px); /* Arka plan bulanıklığı */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(245, 245, 245, 0.9));
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    color: white; /* Metni arka plana göre kontrastlı yapar */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .thought-details-page__thought-info {
@@ -264,27 +208,24 @@ nav .links a:hover {
     align-items: center;
     width: 100%;
     max-width: 800px;
-    background: rgba(255, 255, 255, 0.6); /* Hafif beyaz transparan arka plan */
+    background: white;
     padding: 30px 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    color: #333; /* Daha açık bir kontrast sağlar */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .thought-details-page__cover {
     width: 100%;
-    max-height: 250px; /* Resim boyutunu sınırla */
+    max-height: 300px;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .thought-details-page__cover img {
     width: 100%;
-    height: 100%; /* Resmi alana sığacak şekilde boyutlandır */
-    max-height: 280px; /* Resim boyutunu sınırla */
-
-    object-fit: scale-down; /* Resmin alanı doldurmasını sağlar, oranı bozmadan */
+    height: auto;
+    object-fit: cover;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -295,49 +236,44 @@ nav .links a:hover {
 
 .thought-details-page__thought-info h2 {
     font-size: 28px;
-    color: var(--text-light, #f0f0f0); /* Açık tonları varsayılan yap */
+    color: var(--text-dark);
     font-weight: bold;
+    text-transform: capitalize;
+    margin: 20px 0 10px;
     text-align: center;
     word-wrap: break-word;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Koyu temada okunabilirliği artırır */
 }
+
 .thought-details-page__username {
-    font-size: 14px;
-    color: var(--text-light, #f0f0f0); /* Açık tonları varsayılan yap */
-    font-weight: bold;
+    font-size: 16px;
+    color: var(--gray-medium);
+    margin-bottom: 20px;
+    font-style: italic;
     text-align: center;
-    word-wrap: break-word;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Koyu temada okunabilirliği artırır */
 }
 
 .thought-details-page__details {
     font-size: 18px;
-    line-height: 1.8;
-    color: #222; /* Daha koyu ve belirgin metin */
+    line-height: 1.6;
+    color: #444;
     text-align: justify;
     margin-bottom: 20px;
     max-width: 100%;
     max-height: 300px;
     overflow-y: auto;
-    padding: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.9); /* Daha belirgin beyaz transparan */
-    backdrop-filter: blur(5px); /* Hafif bulanıklık efekti */
+    background: rgba(245, 245, 245, 0.8);
 }
 
-/* Scrollbar customization */
 .thought-details-page__details::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 .thought-details-page__details::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-}
-
-.thought-details-page__details::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
 }
 
 button {
@@ -386,10 +322,6 @@ button:disabled {
         height: 200px;
     }
 
-    .thought-details-page__cover img {
-        max-height: 200px;
-    }
-
     .thought-details-page__thought-info h2 {
         font-size: 24px;
     }
@@ -404,11 +336,12 @@ button:disabled {
     }
 }
 
+/* thought-form.vue */
 .thought-form {
     max-width: 600px;
     margin: 0 auto;
     padding: 40px 30px;
-    background-color: transparent;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     animation: fadeInUp 1s ease-out;
@@ -677,7 +610,7 @@ button:disabled {
 .listview-timestamp {
     margin-top: auto;
     font-size: 0.8rem;
-    color: var(--text-dark);
+    color: #999;
 }
 
 @media (max-width: 768px) {
@@ -830,7 +763,6 @@ button:disabled {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
 .thoughts-error-message {
     color: var(--warning);
     background-color: #f8d7da;
@@ -891,15 +823,12 @@ button:disabled {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: transparent;
 }
 
 .home-page-header {
     text-align: center;
     margin-bottom: 40px;
-    background-color: transparent;
 }
-
 
 .home-page-header img {
     width: 100%;
@@ -915,7 +844,7 @@ button:disabled {
 
 .home-page-header p {
     font-size: 18px;
-    color: var(--text-dark);
+    color: var(--secondary);
     margin-top: 10px;
 }
 
@@ -965,3 +894,165 @@ button:disabled {
 .home-page-footer p {
     font-size: 14px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+<template>
+  <div class="navbar">
+    <transition appear @before-enter="beforeEnter" @enter="enter">
+      <nav class="navbar-container">
+        <router-link :to="{ name: 'home' }">
+          <img src="@/assets/logo.png" alt="logo" class="navbar-logo" />
+        </router-link>
+        <div class="navbar-links">
+          <h1 class="navbar-link">
+            <router-link :to="{ name: 'home' }">Home</router-link>
+          </h1>
+          <h1 class="navbar-link">
+            <router-link :to="{ name: 'aboutus' }">About Us</router-link>
+          </h1>
+          <div class="navbar-thoughts" v-if="user">
+            <h1 class="navbar-link">
+              <router-link :to="{ name: 'thoughts' }">Thoughts</router-link>
+            </h1>
+            <span class="navbar-user" v-if="!user.isAnonymous"
+              >Hi, {{ user.displayName }}</span
+            >
+            <span class="navbar-user" v-else>Hi, Anonymous Person</span>
+            <button class="navbar-button" @click="handleClick">Logout</button>
+          </div>
+          <div class="navbar-sign" v-else>
+            <h2 class="navbar-link">
+              <router-link :to="{ name: 'login' }">Login</router-link>
+            </h2>
+            <h2 class="navbar-link">
+              <router-link :to="{ name: 'signup' }">Signup</router-link>
+            </h2>
+          </div>
+        </div>
+        <!-- Dark Mode Toggle Button -->
+        <button class="dark-mode-toggle" @click="toggleDarkMode">
+          <transition name="icon-transition">
+            <span v-if="isDarkMode" class="sun-icon">🌙</span>
+            <span v-else class="moon-icon">🌞</span>
+          </transition>
+        </button>
+      </nav>
+    </transition>
+  </div>
+</template>
+
+<script>
+import getUser from "@/composables/getUser";
+import useLogout from "@/composables/useLogout";
+import { useRouter } from "vue-router";
+import gsap from "gsap";
+
+export default {
+  setup() {
+    const { user } = getUser();
+    const { logout } = useLogout();
+    const router = useRouter();
+    
+    const isDarkMode = ref(false);
+
+    const toggleDarkMode = () => {
+      isDarkMode.value = !isDarkMode.value;
+      document.documentElement.classList.toggle('dark-mode', isDarkMode.value);
+    };
+
+    const handleClick = async () => {
+      await logout();
+      console.log("Logout success");
+      router.push({ name: "login" });
+    };
+
+    const beforeEnter = (el) => {
+      el.style.transform = "translateY(20px)";
+      el.style.opacity = 0;
+    };
+
+    const enter = (el, done) => {
+      gsap.to(el, {
+        duration: 2,
+        y: 0,
+        opacity: 1,
+        ease: "back",
+        onComplete: done,
+      });
+    };
+
+    return { enter, beforeEnter, handleClick, user, isDarkMode, toggleDarkMode };
+  },
+};
+</script>
+
+<style>
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
+.sun-icon,
+.moon-icon {
+  transition: transform 0.3s ease;
+}
+
+.sun-icon {
+  transform: rotate(0deg);
+}
+
+.moon-icon {
+  transform: rotate(180deg);
+}
+
+.icon-transition-enter-active,
+.icon-transition-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.icon-transition-enter, .icon-transition-leave-to /* .icon-transition-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+
+.dark-mode {
+  background-color: #181914;
+  color: #fff;
+}
+
+:root {
+  --primary: #1db954;
+  --secondary: #181914;
+  --warning: #ff0000;
+  --gray-light: #f5f5f5;
+  --gray-dark: #333;
+  --white: #fff;
+  --accent: #1db954;
+  --text-dark: #333;
+  --gray-medium: #666;
+}
+</style>

@@ -1,25 +1,40 @@
 <template>
   <div class="navbar">
     <transition appear @before-enter="beforeEnter" @enter="enter">
-      <nav>
+      <nav class="navbar-container">
         <router-link :to="{ name: 'home' }">
-          <img src="@/assets/logo.png" alt="logo" class="logo" />
+          <img src="@/assets/logo.png" alt="logo" class="navbar-logo" />
         </router-link>
-        <div class="nav-links">
-          <h1><router-link :to="{ name: 'home' }">Home</router-link></h1>
-          <h1><router-link :to="{ name: 'aboutus' }">About Us</router-link></h1>
-          <div class="thoughts" v-if="user">
-            <h1>
+        <div class="navbar-links">
+          <h1 class="navbar-link">
+            <router-link :to="{ name: 'home' }">Home</router-link>
+          </h1>
+          <h1 class="navbar-link">
+            <router-link :to="{ name: 'aboutus' }">About Us</router-link>
+          </h1>
+          <div class="navbar-thoughts" v-if="user">
+            <h1 class="navbar-link">
               <router-link :to="{ name: 'thoughts' }">Thoughts</router-link>
             </h1>
-            <span v-if="!user.isAnonymous">Hi, {{ user.displayName }}</span>
-            <span v-else>Hi, Anonymous Person</span>
-            <button @click="handleClick">Logout</button>
+            <span class="navbar-user" v-if="!user.isAnonymous"
+              >Hi, {{ user.displayName }}</span
+            >
+            <span class="navbar-user" v-else>Hi, Anonymous Person</span>
+            <button class="navbar-button" @click="handleClick">Logout</button>
           </div>
-          <div class="sign" v-else>
-            <h2><router-link :to="{ name: 'login' }">Login</router-link></h2>
-            <h2><router-link :to="{ name: 'signup' }">Signup</router-link></h2>
+          <div class="navbar-sign" v-else>
+            <h2 class="navbar-link">
+              <router-link :to="{ name: 'login' }">Login</router-link>
+            </h2>
+            <h2 class="navbar-link">
+              <router-link :to="{ name: 'signup' }">Signup</router-link>
+            </h2>
           </div>
+          <button class="theme-toggle-btn" @click="toggleTheme">
+            <i :class="['fa', 'fas', themeIcon]" class="theme-icon"></i>
+            <span class="sr-only">Toggle theme</span>
+          </button>
+          
         </div>
       </nav>
     </transition>
@@ -31,6 +46,7 @@ import getUser from "@/composables/getUser";
 import useLogout from "@/composables/useLogout";
 import { useRouter } from "vue-router";
 import gsap from "gsap";
+import {ref} from "vue";
 
 export default {
   setup() {
@@ -38,9 +54,18 @@ export default {
     const { logout } = useLogout();
     const router = useRouter();
 
+    // Tema değiştirme fonksiyonu
+    const toggleTheme = () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      themeIcon.value = currentTheme === "dark" ? "fa-sun" : "fa-moon"; // Ikon değişimi
+    };
+
+    const themeIcon = ref("fa-moon"); // Başlangıçta ay ikonu
+
     const handleClick = async () => {
       await logout();
-      console.log("Logout success");
       router.push({ name: "login" });
     };
 
@@ -59,103 +84,11 @@ export default {
       });
     };
 
-    return { enter, beforeEnter, handleClick, user };
+    return { enter, beforeEnter, handleClick, toggleTheme, user, themeIcon };
   },
 };
+
 </script>
 
-<style scoped>
-.navbar {
-  background-color: #1e1e2f;
-  color: #e0e0e0;
-  padding: 10px 20px;
-  margin-bottom: 60px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-bottom: 2px solid #3e3e5e;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-}
-
-nav .logo {
-  width: 40px;
-  height: auto;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-nav .nav-links {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-nav h1 {
-  font-size: 18px;
-  margin: 0;
-  color: #a0a0c0;
-  text-transform: capitalize;
-  font-weight: 500;
-}
-
-nav a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  color: #b0b0ff;
-  background-color: transparent;
-  font-size: 14px;
-  padding: 6px 12px;
-  border: 1px solid #b0b0ff;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: #3e3e5e;
-  color: #fff;
-  border-color: #3e3e5e;
-}
-
-span {
-  margin-right: 16px;
-  font-size: 14px;
-  padding-right: 16px;
-  border-right: 1px solid #555;
-  color: #bbb;
-}
-
-.sign h2 {
-  margin-left: 10px;
-  font-size: 18px;
-}
-
-.thoughts {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-  }
-}
+<style>
 </style>

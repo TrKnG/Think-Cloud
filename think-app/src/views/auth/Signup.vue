@@ -1,12 +1,32 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <h3>Signup</h3>
-    <input type="text" placeholder="Display Name" v-model="displayName" />
-    <input type="email" placeholder="Email" v-model="email" />
-    <input type="password" placeholder="Password" v-model="password" />
-    <div class="error" v-if="error">{{ error }}</div>
-    <button v-if="!isPending">Signup</button>
-    <button v-if="isPending">Loading</button>
+  <form class="signup-form" @submit.prevent="handleSubmit">
+    <h3 class="signup-form__title">Signup</h3>
+    <input
+      class="signup-form__input"
+      type="text"
+      placeholder="Display Name"
+      v-model="displayName"
+    />
+    <input
+      class="signup-form__input"
+      type="email"
+      placeholder="Email"
+      v-model="email"
+    />
+    <input
+      class="signup-form__input"
+      type="password"
+      placeholder="Password"
+      v-model="password"
+    />
+    <div class="signup-form__error" v-if="error">{{ error }}</div>
+    <button class="signup-form__button" v-if="!isPending">Signup</button>
+    <button
+      class="signup-form__button signup-form__button--loading"
+      v-if="isPending"
+    >
+      Loading
+    </button>
   </form>
 </template>
 
@@ -40,51 +60,5 @@ export default {
 };
 </script>
 
-<style scoped>
-button {
-  color: #b0b0ff;
-  background-color: transparent;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border: 2px solid #b0b0ff;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.4s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  outline: none;
-}
-
-button:hover {
-  background-color: #1db954;
-  color: #fff;
-  border-color: #1db954;
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  animation: buttonHover 0.4s ease-in-out;
-}
-
-@keyframes buttonHover {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-5px) scale(1.1);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
-
-button:focus {
-  box-shadow: 0 0 0 4px rgba(29, 185, 84, 0.3);
-}
-
-button:disabled {
-  background-color: #ccc;
-  border-color: #bbb;
-  color: #666;
-  cursor: not-allowed;
-  box-shadow: none;
-}
+<style>
 </style>

@@ -39,7 +39,9 @@ export default {
     const handleSubmit = async () => {
       isPending.value = true;
       try {
-        const userName = user.value.isAnonymous ? "Anonymous" : user.value.displayName;
+        const userName = user.value.isAnonymous
+          ? "Anonymous"
+          : user.value.displayName;
         const res = await addDocument({
           thought: thought.value,
           details: details.value,
@@ -73,71 +75,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.thought-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  animation: fadeInUp 1s ease-out;
-}
-
-.thought-form h4 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #f9f9f9;
-  resize: vertical;
-  transition: border 0.3s ease, background-color 0.3s ease;
-}
-
-.input-field:focus {
-  border-color: #1db954;
-  background-color: #fff;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #1db954;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.submit-btn:hover:not(:disabled) {
-  background-color: #17a34a;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+<style>
 </style>
