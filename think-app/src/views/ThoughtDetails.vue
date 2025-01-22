@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="thought-details-page">
     <div class="thought-details-page__error" v-if="error">{{ error }}</div>
-    <div class="thought-details-page__thought-details" v-else-if="thought">
-      <div class="thought-details-page__thought-info">
+    <div v-else-if="thought" class="thought-details-page__content">
+      <!-- Sol Bölüm -->
+      <div class="thought-details-page__left">
         <div class="thought-details-page__cover">
           <img src="@/assets/logo5.png" alt="Logo" />
         </div>
@@ -10,28 +11,45 @@
         <p class="thought-details-page__username">
           Created by {{ thought.userName }}
         </p>
+        <p class="thought-details-page__date">
+          Date: {{ formatDate(thought.createdAt) }}
+        </p>
         <p class="thought-details-page__details">{{ thought.details }}</p>
-
         <div class="thought-details-page__likes">
           <button
-            class="like-button"
+            class="thought-details-page__like-button"
             :disabled="hasDisliked"
             @click="handleLike"
           >
             👍 Like ({{ thought.likes }})
           </button>
           <button
-            class="dislike-button"
+            class="thought-details-page__dislike-button"
             :disabled="hasLiked"
             @click="handleDislike"
           >
             👎 Dislike ({{ thought.dislikes }})
           </button>
         </div>
+      </div>
 
-        <div v-if="thought && user">
-          <button v-if="ownerShip" @click="handleDelete">Delete</button>
-          <button v-else disabled>Not Authorized</button>
+      <div class="thought-details-page__right">
+        <h3>Comments</h3>
+        <div class="thought-details-page__comments">
+          <ul>
+            <li v-for="(comment, index) in thought.comments" :key="index">
+              <p>
+                <strong>{{ comment.userName }}:</strong> {{ comment.text }}
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="thought-details-page__add-comment">
+          <textarea
+            v-model="newComment"
+            placeholder="Add your comment"
+          ></textarea>
+          <button @click="addComment">Post Comment</button>
         </div>
       </div>
     </div>
@@ -40,7 +58,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import getUser from "@/composables/getUser";
 import getDocument from "@/composables/getDocument";
@@ -48,31 +66,19 @@ import useDocument from "@/composables/useDocument";
 
 export default {
   props: ["id"],
+  methods: {
+    formatDate(timestamp) {
+      const date = new Date(timestamp.seconds * 1000);
+      const options = { month: "long", day: "numeric" };
+      return date.toLocaleDateString("en-US", options);
+    },
+  },
   setup(props) {
-    const {
-      document: thought,
-      error,
-      loading,
-    } = getDocument("thoughts", props.id);
+    const { document: thought, error } = getDocument("thoughts", props.id);
     const { user } = getUser();
-    const { deleteDoc } = useDocument("thoughts", props.id);
     const { updateDoc } = useDocument("thoughts", props.id);
     const router = useRouter();
-
-    const handleDelete = async () => {
-      await deleteDoc();
-      router.push({ name: "thoughts" });
-    };
-
-    const ownerShip = computed(() => {
-      if (thought.value.userName === "Anonymous" && user.value.isAnonymous) {
-        return true;
-      } else {
-        return (
-          thought.value && user.value && user.value.uid === thought.value.userId
-        );
-      }
-    });
+    const newComment = ref("");
 
     const hasLiked = computed(
       () => thought.value.userLikes?.[user.value.uid] === "liked"
@@ -121,13 +127,31 @@ export default {
       await updateDoc(thought.value);
     };
 
+    const addComment = async () => {
+      if (!newComment.value.trim()) return;
+      const comment = {
+        userName: user.value?.displayName || "Anonymous",
+        text: newComment.value.trim(),
+      };
+      thought.value.comments = [...(thought.value.comments || []), comment];
+      newComment.value = "";
+      await updateDoc(thought.value);
+    };
+
+    const ownerShip = computed(() => {
+      return (
+        thought.value && user.value && thought.value.userId === user.value.uid
+      );
+    });
+
     return {
       thought,
       error,
-      loading,
-      ownerShip,
       user,
-      handleDelete,
+      router,
+      ownerShip,
+      newComment,
+      addComment,
       handleLike,
       handleDislike,
       hasLiked,

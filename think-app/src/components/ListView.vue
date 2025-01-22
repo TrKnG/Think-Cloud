@@ -24,6 +24,14 @@
             </p>
           </div>
         </router-link>
+        <div class="listview-actions">
+          <div class="listview-like-dislike">
+            👍 {{ thought.likes }} / 👎 {{ thought.dislikes }} Likes/Dislikes
+          </div>
+          <div class="listview-comments">
+            💬 {{ thought.comments ? thought.comments.length : 0 }} Comments
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -42,5 +50,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
 </style>
