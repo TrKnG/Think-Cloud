@@ -43,11 +43,14 @@ body {
     background-color: var(--gray-light);
     font-size: 16px;
     line-height: 1.6;
+    --border-color: var(--border-light);
+    --text-color: var(--text-dark); 
 }
 
 [data-theme='dark'] body {
     background-color: var(--background-dark);
     color: var(--text-light);
+    --border-color: var(--border-dark);
 }
 
 
@@ -410,10 +413,11 @@ nav .links a:hover {
 
 .thought-details-page__likes {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     margin-top: 20px;
     justify-content: center;
-}
+    flex-wrap: wrap; /* Ekran daraldığında elemanlar alt satıra geçebilir */
+  }
 
 .thought-details-page__like-button,
 .thought-details-page__dislike-button {
@@ -446,6 +450,53 @@ nav .links a:hover {
     gap: 5px;
 }
 
+.thought-details-page__emojis {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap; /* Elemanlar dar ekranda taşabilir */
+  }
+  
+  .thought-details-page__emoji-button {
+    padding: 8px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .thought-details-page__emoji-button:hover {
+    background-color: var(--primary);
+    transform: scale(1.05);
+  }
+  
+  .thought-details-page__emoji-button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+  }
+
+.thought-details-page__comments {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Subtle shadow for better contrast */
+    font-size: 18px; /* Same font size as details */
+    line-height: 1.8; /* Same line height as details */
+    color: var(--text-light); /* Same text color as details */
+    text-align: justify; /* Same text alignment as details */
+    margin-top: 10px; /* Space above comments section */
+    max-height: 300px; /* Same max height as details */
+    overflow-y: auto; /* Scroll if content exceeds max height */
+    padding: 15px; /* Same padding as details */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Same border as details */
+    border-radius: 8px; /* Same border radius as details */
+    background: transparent; /* Same background as details */
+    backdrop-filter: blur(5px); /* Same backdrop filter as details */
+}
+
 .thought-details-page__comments ul {
     list-style: none;
     padding: 0;
@@ -462,10 +513,20 @@ nav .links a:hover {
     width: 100%;
     height: 100px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color); /* Use theme-based border color */
     border-radius: 8px;
     padding: 10px;
     font-size: 14px;
+    color: var(--secondary);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px); /* Same backdrop filter as details */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+/* Optional: Change border color on focus */
+.thought-details-page__add-comment textarea:focus {
+    border-color: var(--text-color); /* Change border color on focus */
+    outline: none; /* Remove default outline */
 }
 
 .thought-details-page__add-comment button {
