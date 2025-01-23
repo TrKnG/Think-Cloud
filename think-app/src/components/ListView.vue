@@ -26,7 +26,7 @@
         </router-link>
         <div class="listview-actions">
           <div class="listview-like-dislike">
-            👍 {{ thought.likes }} / 👎 {{ thought.dislikes }} Likes/Dislikes
+            👍 {{ thought.likes }} / 👎 {{ thought.dislikes }} 
           </div>
           <div class="listview-comments">
             💬 {{ thought.comments ? thought.comments.length : 0 }} Comments
