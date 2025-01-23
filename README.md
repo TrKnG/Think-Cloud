@@ -23,7 +23,7 @@ Visit the live project here: [ThinkAPP](https://think-cloud-ce46c.web.app/)
 
 Follow these steps to run the project locally or deploy updates to Firebase Hosting:
 
-1. Clone the Repository: `git clone https://github.com/your-username/your-repository-name.git` and `cd your-repository-name`
+1. Clone the Repository: `git clone https://github.com/TrKnG/Think-Cloud.git` and `cd Think-Cloud`
 
 2. Install Dependencies: Ensure you have Node.js and npm installed on your machine, then run `npm install`
 
@@ -84,5 +84,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Author ✍️
 
-Your Name  
+Enes Malik Tok
 If you like this project, don't forget to give it a ⭐ on GitHub!
