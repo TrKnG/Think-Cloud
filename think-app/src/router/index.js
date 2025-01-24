@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import AboutUs from "@/views/AboutUs.vue";
 import AddThought from "@/views/AddThought.vue";
 import Thoughts from "@/views/Thoughts.vue";
+import Profile from "@/views/Profile.vue";
 import { projectAuth } from "@/firebase/config";
 
 const requireAuth = (to, from, next) => {
@@ -51,6 +52,12 @@ const routes = [
     path: "/add-thought",
     name: "addthought",
     component: AddThought,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile,
     beforeEnter: requireAuth,
   },
   {

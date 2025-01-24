@@ -42,7 +42,8 @@ export default {
         const userName = user.value.isAnonymous
           ? "Anonymous"
           : user.value.displayName;
-        const res = await addDocument({
+
+        const initialThought = {
           thought: thought.value,
           details: details.value,
           userId: user.value.uid,
@@ -50,7 +51,17 @@ export default {
           createdAt: timestamp(),
           likes: 0,
           dislikes: 0,
-        });
+          comments: [],
+          emojis: [
+            { id: 1, symbol: "😂", count: 0 },
+            { id: 2, symbol: "😍", count: 0 },
+            { id: 4, symbol: "😭", count: 0 },
+            { id: 5, symbol: "🔥", count: 0 },
+          ],
+          emojiUsers: {},
+        };
+
+        const res = await addDocument(initialThought);
 
         isPending.value = false;
 

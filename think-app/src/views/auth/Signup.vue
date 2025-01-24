@@ -42,15 +42,51 @@ export default {
     const email = ref("");
     const password = ref("");
 
+    const isValidEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const isValidInput = (input) => {
+      const forbiddenChars = /[<>{}"'&]/;
+      return !forbiddenChars.test(input);
+    };
+
     const handleSubmit = async () => {
-      const res = await signup(email.value, password.value, displayName.value);
-      if (!error.value) {
-        console.log("Signup success");
-      } else {
-        console.log("Signup failed");
-        console.log(displayName.value);
-        console.log(email.value);
-        console.log(password.value);
+      if (!displayName.value.trim()) {
+        error.value = "Display Name cannot be empty";
+        return;
+      }
+
+      if (!isValidEmail(email.value)) {
+        error.value = "Invalid email format";
+        return;
+      }
+
+      if (!isValidInput(password.value)) {
+        error.value = "Password contains invalid characters";
+        return;
+      }
+
+      if (!password.value.trim()) {
+        error.value = "Password cannot be empty";
+        return;
+      }
+
+      try {
+        const res = await signup(
+          email.value,
+          password.value,
+          displayName.value
+        );
+        if (!error.value) {
+          console.log("Signup success");
+        } else {
+          console.log("Signup failed");
+        }
+      } catch (err) {
+        console.log(err);
+        error.value = "Signup failed";
       }
     };
 

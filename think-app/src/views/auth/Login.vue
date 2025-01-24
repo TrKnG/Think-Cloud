@@ -50,12 +50,42 @@ export default {
     const email = ref("");
     const password = ref("");
 
+    const isValidEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const isValidInput = (input) => {
+      const forbiddenChars = /[<>{}"'&]/;
+      return !forbiddenChars.test(input);
+    };
+
     const handleSubmit = async () => {
-      const res = await login(email.value, password.value);
-      if (!error.value) {
-        console.log(res);
-        console.log("Login success");
-        router.push({ name: "home" });
+      if (!isValidEmail(email.value)) {
+        error.value = "Invalid email format";
+        return;
+      }
+
+      if (!isValidInput(password.value)) {
+        error.value = "Password contains invalid characters";
+        return;
+      }
+
+      if (!password.value.trim()) {
+        error.value = "Password cannot be empty";
+        return;
+      }
+
+      try {
+        const res = await login(email.value, password.value);
+        if (!error.value) {
+          console.log(res);
+          console.log("Login success");
+          router.push({ name: "home" });
+        }
+      } catch (err) {
+        console.log(err);
+        error.value = "Login failed";
       }
     };
 
@@ -66,7 +96,7 @@ export default {
         router.push({ name: "home" });
       } catch (err) {
         console.log(err);
-        error.value = "Anonim giriş başarısız";
+        error.value = "Anonymous login failed";
       } finally {
         isPending.value = false;
       }

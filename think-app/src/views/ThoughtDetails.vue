@@ -2,7 +2,6 @@
   <div class="thought-details-page">
     <div class="thought-details-page__error" v-if="error">{{ error }}</div>
     <div v-else-if="thought" class="thought-details-page__content">
-      <!-- Sol Bölüm -->
       <div class="thought-details-page__left">
         <div class="thought-details-page__cover">
           <img src="@/assets/logo5.png" alt="Logo" />
@@ -125,7 +124,6 @@ export default {
       () => thought.value,
       (newThought) => {
         if (newThought) {
-          // Backend'den gelen emojileri frontend'e aktar
           emojis.value = newThought.emojis || [
             { id: 1, symbol: "😂", count: 0 },
             { id: 2, symbol: "😍", count: 0 },
@@ -133,11 +131,10 @@ export default {
             { id: 5, symbol: "🔥", count: 0 },
           ];
 
-          // Kullanıcının bastığı emojileri backend'den al
           selectedEmojis.value = newThought.emojiUsers?.[user.value.uid] || [];
         }
       },
-      { immediate: true } // İlk yüklemede çalışmasını sağla
+      { immediate: true }
     );
 
     const handleEmojiClick = async (emoji) => {
@@ -145,19 +142,15 @@ export default {
         thought.value.emojiUsers = {};
       }
 
-      // Kullanıcının daha önce bu emojiye bastığını kontrol et
       if (thought.value.emojiUsers[user.value.uid]?.includes(emoji.id)) return;
 
-      // Emoji sayısını artır
       emoji.count++;
 
-      // Kullanıcının bastığı emojiyi kaydet
       thought.value.emojiUsers[user.value.uid] = [
         ...(thought.value.emojiUsers[user.value.uid] || []),
         emoji.id,
       ];
 
-      // Güncellenmiş verileri backend'e kaydet
       await updateDoc({
         ...thought.value,
         emojis: emojis.value.map((e) => ({
@@ -173,14 +166,13 @@ export default {
       const confirmDelete = confirm(
         "Are you sure you want to delete this thought?"
       );
-      if (!confirmDelete) return; // Exit if the user cancels
+      if (!confirmDelete) return;
 
       try {
-        await deleteDoc(); // Call the delete function
-        router.push({ name: "thoughts" }); // Redirect after deletion
+        await deleteDoc();
+        router.push({ name: "thoughts" });
       } catch (error) {
         console.error("Error deleting thought:", error);
-        // Optionally, set an error message in your component state
       }
     };
 
@@ -192,11 +184,19 @@ export default {
     );
 
     const handleLike = async () => {
-      if (thought.value.userLikes?.[user.value.uid] === "liked") {
+      if (!thought.value.userLikes) {
+        thought.value.userLikes = {}; // Eksikse başlat
+      }
+      if (!user.value?.uid) {
+        console.error("User ID is not defined.");
+        return;
+      }
+
+      if (thought.value.userLikes[user.value.uid] === "liked") {
         thought.value.likes--;
         thought.value.userLikes[user.value.uid] = null;
       } else {
-        if (thought.value.userLikes?.[user.value.uid] === "disliked") {
+        if (thought.value.userLikes[user.value.uid] === "disliked") {
           thought.value.dislikes--;
         }
         thought.value.likes++;
@@ -206,11 +206,19 @@ export default {
     };
 
     const handleDislike = async () => {
-      if (thought.value.userLikes?.[user.value.uid] === "disliked") {
+      if (!thought.value.userLikes) {
+        thought.value.userLikes = {}; // Eksikse başlat
+      }
+      if (!user.value?.uid) {
+        console.error("User ID is not defined.");
+        return;
+      }
+
+      if (thought.value.userLikes[user.value.uid] === "disliked") {
         thought.value.dislikes--;
         thought.value.userLikes[user.value.uid] = null;
       } else {
-        if (thought.value.userLikes?.[user.value.uid] === "liked") {
+        if (thought.value.userLikes[user.value.uid] === "liked") {
           thought.value.likes--;
         }
         thought.value.dislikes++;
@@ -223,6 +231,7 @@ export default {
       if (!newComment.value.trim()) return;
       const comment = {
         userName: user.value?.displayName || "Anonymous",
+        userId: user.value?.uid,
         text: newComment.value.trim(),
       };
       thought.value.comments = [...(thought.value.comments || []), comment];

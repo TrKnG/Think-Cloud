@@ -12,10 +12,14 @@
           <h1 class="navbar-link">
             <router-link :to="{ name: 'aboutus' }">About Us</router-link>
           </h1>
+          <h1 class="navbar-link" v-if="user && !user.isAnonymous">
+            <router-link :to="{ name: 'profile' }">Profile</router-link>
+          </h1>
           <div class="navbar-thoughts" v-if="user">
             <h1 class="navbar-link">
               <router-link :to="{ name: 'thoughts' }">Thoughts</router-link>
             </h1>
+
             <span class="navbar-user" v-if="!user.isAnonymous"
               >Hi, {{ user.displayName }}</span
             >
