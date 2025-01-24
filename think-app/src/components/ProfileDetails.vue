@@ -20,16 +20,20 @@
           :key="thought.id"
           class="profileDetails-thought-item"
         >
-          <h4>{{ thought.thought }}</h4>
-          <p>{{ thought.details }}</p>
-          <p>
-            <strong>Likes:</strong> {{ thought.likes }} |
-            <strong>Dislikes:</strong> {{ thought.dislikes }}
-          </p>
-          <p><strong>Comments:</strong> {{ thought.comments.length }}</p>
-          <p class="profileDetails-timestamp">
-            Created At: {{ formatDate(thought.createdAt) }}
-          </p>
+          <router-link
+            :to="{ name: 'thoughtdetails', params: { id: thought.id } }"
+          >
+            <h4>{{ thought.thought }}</h4>
+            <p>{{ thought.details }}</p>
+            <p>
+              <strong>Likes:</strong> {{ thought.likes }} |
+              <strong>Dislikes:</strong> {{ thought.dislikes }}
+            </p>
+            <p><strong>Comments:</strong> {{ thought.comments.length }}</p>
+            <p class="profileDetails-timestamp">
+              Created At: {{ formatDate(thought.createdAt) }}
+            </p>
+          </router-link>
         </div>
       </div>
       <p v-else>No thoughts posted yet.</p>
@@ -44,15 +48,19 @@
           :key="thought.id"
           class="profileDetails-thought-item"
         >
-          <h4>{{ thought.thought }}</h4>
-          <p>{{ thought.details }}</p>
-          <p>
-            <strong>Likes:</strong> {{ thought.likes }} |
-            <strong>Dislikes:</strong> {{ thought.dislikes }}
-          </p>
-          <p class="profileDetails-timestamp">
-            Created At: {{ formatDate(thought.createdAt) }}
-          </p>
+          <router-link
+            :to="{ name: 'thoughtdetails', params: { id: thought.id } }"
+          >
+            <h4>{{ thought.thought }}</h4>
+            <p>{{ thought.details }}</p>
+            <p>
+              <strong>Likes:</strong> {{ thought.likes }} |
+              <strong>Dislikes:</strong> {{ thought.dislikes }}
+            </p>
+            <p class="profileDetails-timestamp">
+              Created At: {{ formatDate(thought.createdAt) }}
+            </p>
+          </router-link>
         </div>
       </div>
       <p v-else>You haven't liked any thoughts yet.</p>
